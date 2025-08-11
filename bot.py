@@ -5,7 +5,6 @@ from datetime import datetime
 # from discord.ext import MissingPermissions
 from keys import *
 import requests
-
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True  # needed for on_member_join
