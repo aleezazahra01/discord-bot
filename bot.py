@@ -5,10 +5,42 @@ from datetime import datetime
 # from discord.ext import MissingPermissions
 from keys import *
 import requests
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True  # needed for on_member_join
 client = commands.Bot(command_prefix='=', intents=intents) 
+@client.command()
+@commands.has_any_role('moderator','Administrator','Owner')
+async def helpme(ctx):
+    embed = discord.Embed(
+        title="📜 Kuromi XD - Command List",
+        description="Here are all my commands. Use `=` before each command!",
+        color=discord.Color.purple()
+    )
+
+    embed.add_field(name="🛠 Moderation", value="""
+    `=ban @user reason` - Ban a user
+    `=kick @user reason` - Kick a user
+    `=mute @user time` - Mute user for given time
+    `=unmute @user` - Unmute a user
+    """, inline=False)
+
+    embed.add_field(name="🎉 Fun", value="""
+    `=hello` - Say hello
+    `=bye` - Say bye
+    `=ily` - Love message
+    `=joke` - Random joke
+    """, inline=False)
+
+    embed.add_field(name="🔊 Voice", value="""
+    `=join` - Bot joins your VC
+    `=leave` - Bot leaves VC
+    """, inline=False)
+
+    embed.set_footer(text="❤️ Kuromi XD loves you!")
+
+    await ctx.send(embed=embed)
 
 @client.event
 async def on_ready():
@@ -25,7 +57,7 @@ async def bye(ctx):
 
 @client.event
 async def on_member_join(member):
-    channel = client.get_channel(your channel id here)  # your welcome channel ID
+    channel = client.get_channel(1404437300082905128)  # your welcome channel ID
     if not channel:
         print("Channel not found or bot has no access.")
         return
@@ -121,7 +153,7 @@ async def unmute(ctx,member:discord.Member):
 
 @client.command()
 async def joke(ctx):
-    #Fetches a random joke and sends it.
+    """Fetches a random joke and sends it."""
     try:
         response = requests.get("https://v2.jokeapi.dev/joke/Any?type=single")
         data = response.json()
@@ -139,7 +171,10 @@ async def sybau(ctx):
 @client.command()
 async def ping(ctx):
     await ctx.send('pong')
-    
+#displaying colland list by =help
+
+
+
 #token
 client.run(bottoken)
 
