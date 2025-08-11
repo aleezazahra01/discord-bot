@@ -26,7 +26,7 @@ async def bye(ctx):
 
 @client.event
 async def on_member_join(member):
-    channel = client.get_channel(1404437300082905128)  # your welcome channel ID
+    channel = client.get_channel(your channel id here)  # your welcome channel ID
     if not channel:
         print("Channel not found or bot has no access.")
         return
