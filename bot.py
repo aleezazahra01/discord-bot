@@ -122,7 +122,7 @@ async def unmute(ctx,member:discord.Member):
 
 @client.command()
 async def joke(ctx):
-    """Fetches a random joke and sends it."""
+    #Fetches a random joke and sends it.
     try:
         response = requests.get("https://v2.jokeapi.dev/joke/Any?type=single")
         data = response.json()
@@ -133,6 +133,13 @@ async def joke(ctx):
 @client.command()
 async def ily(ctx):
     await ctx.send("I LOVE YOU TOO <3")
+
+@client.command()
+async def sybau(ctx):
+    await ctx.send("GURT")
+@client.command()
+async def ping(ctx):
+    await ctx.send('pong')
     
 #token
 client.run(bottoken)
