@@ -44,8 +44,3 @@ For all features to work, ensure the bot has:
 1.Administrator (or appropriate moderation) permissions
 2.Access to the welcome channel
 3.Permission to connect & speak in voice channels
-
-
-
-git clone https://github.com/yourusername/kuromi-xd-bot.git
-cd kuromi-xd-bot
