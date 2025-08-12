@@ -171,8 +171,6 @@ async def sybau(ctx):
 @client.command()
 async def ping(ctx):
     await ctx.send('pong')
-#displaying colland list by =help
-
 
 
 #token
