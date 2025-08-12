@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix='=', intents=intents)
 @commands.has_any_role('moderator','Administrator','Owner')
 async def helpme(ctx):
     embed = discord.Embed(
-        title="📜 Kuromi XD - Command List",
+        title="Kuromi XD - Command List",
         description="Here are all my commands. Use `=` before each command!",
         color=discord.Color.purple()
     )
@@ -38,7 +38,7 @@ async def helpme(ctx):
     `=leave` - Bot leaves VC
     """, inline=False)
 
-    embed.set_footer(text="❤️ Kuromi XD loves you!")
+    embed.set_footer(text="Kuromi XD loves you!")
 
     await ctx.send(embed=embed)
 
