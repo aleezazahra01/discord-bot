@@ -1,6 +1,6 @@
-# Kuromi XD Discord Bot 💬🎭
+# Kuromi Discord Bot 💬🎭
 
-Kuromi XD is a multipurpose Discord bot that can welcome new members with jokes, manage your server (ban, kick, mute, unmute), join/leave voice channels, and respond to fun commands.
+Kuromi  is a multipurpose Discord bot that can welcome new members with jokes, manage your server (ban, kick, mute, unmute), join/leave voice channels, and respond to fun commands.
 
 ---
 
