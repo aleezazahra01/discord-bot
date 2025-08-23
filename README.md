@@ -1,46 +1,103 @@
-# Kuromi Discord Bot 💬🎭
+Discord Bot with Flask Keep-Alive (Railway Deployment)
 
-Kuromi  is a multipurpose Discord bot that can welcome new members with jokes, manage your server (ban, kick, mute, unmute), join/leave voice channels, and respond to fun commands.
+This is a simple Discord bot built with discord.py that stays alive 24/7 using a Flask web server. Ideal for deployment on Railway
+ using the free tier.
 
----
+✅ Features
 
-## ✨ Features
-- **Welcome New Members**  
-  Greets new users in the welcome channel with a random joke from [JokeAPI](https://v2.jokeapi.dev/).
+Discord bot using discord.py
 
-- **Fun Commands**
-  - `=hello` → Says hello with a little attitude 😏
-  - `=bye` → Says goodbye politely
-  - `=joke` → Fetches a random joke on demand
-  - `=ily` → Tells you it loves you back ❤️
+Flask-based web server for health checks
 
-- **Voice Channel Control**
-  - `=join` → Joins your current voice channel
-  - `=leave` → Leaves the voice channel
+Deployment on Railway for 24/7 uptime
 
-- **Moderation Tools**
-  - `=ban @user [reason]` → Bans a member
-  - `=kick @user [reason]` → Kicks a member
-  - `=mute @user [time]` → Temporarily mutes a user (`10s`, `5m`, `1d`, `2w`)
-  - `=unmute @user` → Removes mute
+📂 Project Structure
+discord-bot/
+├── bot.py              # Main bot script with Flask
+├── requirements.txt    # Python dependencies
+├── Procfile            # Defines the web process for Railway
+└── README.md           # Documentation
 
----
+🛠 Requirements
 
-## 📦 Installation
+Python 3.10+
+
+discord.py
+
+Flask
+
+A Discord Bot Token
+
+🚀 Local Setup
+
+Clone this repository
+
+git clone https://github.com/your-username/discord-bot.git
+cd discord-bot
+
+
+Create a virtual environment
+
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+
+Install dependencies
+
 pip install -r requirements.txt
 
-3. Configure your bot token
-Create a keys.py file and add:
-bottoken = "YOUR_DISCORD_BOT_TOKEN"
+
+Set environment variable
+
+export DISCORD_TOKEN=your-bot-token
 
 
-5. Enable Intents in Discord Developer Portal
-Go to your bot’s page in the Discord Developer Portal and enable the following,
-Enable:
-Message Content Intent
-Server Members Intent
+Run the bot
 
-For all features to work, ensure the bot has:
-1.Administrator (or appropriate moderation) permissions
-2.Access to the welcome channel
-3.Permission to connect & speak in voice channels
+python bot.py
+
+🌐 Deploy on Railway (Free Hosting)
+1. Prepare Files
+
+Make sure your project has:
+
+bot.py
+
+requirements.txt
+
+Procfile
+
+2. Create Procfile
+
+Add the following line:
+
+web: python bot.py
+
+3. Push to GitHub
+
+Upload all files to your GitHub repo.
+
+4. Deploy on Railway
+
+Go to Railway
+ and sign in.
+
+Click New Project → Deploy from GitHub.
+
+Select your repository.
+
+Add an environment variable:
+
+DISCORD_TOKEN = your-bot-token
+
+
+Click Deploy.
+
+✅ How It Works
+
+Railway will run python bot.py as defined in Procfile.
+
+Flask web server listens for pings to keep the container alive.
+
+Discord bot runs in the same process.
