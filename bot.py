@@ -175,6 +175,9 @@ async def ping(ctx):
 webserver.keep_alive()
 
 #token
+import os
+TOKEN = os.getenv("bottoken")
+
 client.run(bottoken)
 
 
