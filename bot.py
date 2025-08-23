@@ -94,7 +94,7 @@ async def leave(ctx):
 async def ban(ctx,member:discord.Member,*,reason=None):
     # =ban member this user was being rude
     if reason == None:
-        reason="THis user was banned by Aleeza"
+        reason="THis user was banned by Admin"
     await member.ban(reason=reason)
 #mkaing the option to kick users
 @client.command()
@@ -103,7 +103,7 @@ async def kick(ctx,member:discord.Member,*,reason=None):
  
     if reason == None:
         reason="THis user was kicked by Aleeza"
-    await member.kicl(reason=reason)
+    await member.kick(reason=reason)
 #mute users
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
@@ -112,7 +112,7 @@ async def kick(ctx,member:discord.Member,*,reason=None):
 async def mute(ctx,member:discord.Member,timelimit):
     if 's' in timelimit:
         get_time=timelimit.strip('s')
-        if get_time>2419000:
+        if int(get_time)>2419000:
             await ctx.send('the time amount cannot be bigger than 28 days, you can always block them<3')
 
         else:    
@@ -120,7 +120,7 @@ async def mute(ctx,member:discord.Member,timelimit):
            await member.edit(timed_out_until=discord.utils.utcnow()+new_time)
     elif 'm'  in timelimit:  #minutes
         get_time=timelimit.strip('m')
-        if get_time>40320:
+        if int(get_time)>40320:
             await ctx.send('the time amount cannot be bigger than 28 days, you can always block them<3')
 
         else:    
@@ -129,7 +129,7 @@ async def mute(ctx,member:discord.Member,timelimit):
 
     elif 'd' in timelimit:
         get_time=timelimit.strip('d')
-        if get_time>40320:
+        if int(get_time)>40320:
             await ctx.send('the time amount cannot be bigger than 28 days, you can always block them<3')
 
         else:    
@@ -137,7 +137,7 @@ async def mute(ctx,member:discord.Member,timelimit):
            await member.edit(timed_out_until=discord.utils.utcnow()+new_time)
     elif 'w' in timelimit:
            get_time=timelimit.strip('w')
-           if get_time>4:
+           if int(get_time)>4:
             await ctx.send('the time amount cannot be bigger than 28 days, you can always block them<3')
 
            else:    
@@ -172,12 +172,14 @@ async def sybau(ctx):
 async def ping(ctx):
     await ctx.send('pong')
 
-webserver.keep_alive()
+
 
 #token
 TOKEN = os.getenv("bottoken")
 
-client.run(TOKEN)
+if __name__ == "__main__":
+    webserver.keep_alive()
+    client.run(TOKEN)
 
 
 
