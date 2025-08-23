@@ -2,7 +2,7 @@ import discord
 import aiohttp
 from discord.ext import commands
 from datetime import datetime
-# from discord.ext import MissingPermissions
+import webserver
 from keys import *
 import requests
 
@@ -171,9 +171,8 @@ async def sybau(ctx):
 @client.command()
 async def ping(ctx):
     await ctx.send('pong')
-#displaying colland list by =help
 
-
+webserver.keep_alive()
 
 #token
 client.run(bottoken)
