@@ -1,103 +1,32 @@
-Discord Bot with Flask Keep-Alive (Railway Deployment)
+#  Discord Bot (24/7 Hosting with Flask + Railway)
+A simple Discord bot using discord.py and Flask keep-alive server, deployed for free on Railway.
+# Features:
 
-This is a simple Discord bot built with discord.py that stays alive 24/7 using a Flask web server. Ideal for deployment on Railway
- using the free tier.
+✅ Discord bot using discord.py
 
-✅ Features
+✅ Flask web server for uptime
 
-Discord bot using discord.py
+✅ Free hosting on Railway
 
-Flask-based web server for health checks
+✅ Easy to set up & deploy
 
-Deployment on Railway for 24/7 uptime
 
-📂 Project Structure
+## Project Structure
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+
+```bash
 discord-bot/
-├── bot.py              # Main bot script with Flask
-├── requirements.txt    # Python dependencies
-├── Procfile            # Defines the web process for Railway
-└── README.md           # Documentation
+├── bot.py             # Main bot file
+├── requirements.txt   # Python dependencies
+├── Procfile           # Railway start command
+└── README.md          # Documentation
 
-🛠 Requirements
+```
 
-Python 3.10+
-
-discord.py
-
-Flask
-
-A Discord Bot Token
-
-🚀 Local Setup
-
-Clone this repository
-
-git clone https://github.com/your-username/discord-bot.git
-cd discord-bot
-
-
-Create a virtual environment
-
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-
-
-Install dependencies
-
-pip install -r requirements.txt
-
-
-Set environment variable
-
-export DISCORD_TOKEN=your-bot-token
-
-
-Run the bot
-
-python bot.py
-
-🌐 Deploy on Railway (Free Hosting)
-1. Prepare Files
-
-Make sure your project has:
-
-bot.py
-
-requirements.txt
-
-Procfile
-
-2. Create Procfile
-
-Add the following line:
-
+## Deploy on railway.app
+1.Create Procfile
+```bash
 web: python bot.py
-
-3. Push to GitHub
-
-Upload all files to your GitHub repo.
-
-4. Deploy on Railway
-
-Go to Railway
- and sign in.
-
-Click New Project → Deploy from GitHub.
-
-Select your repository.
-
-Add an environment variable:
-
-DISCORD_TOKEN = your-bot-token
+```
 
 
-Click Deploy.
-
-✅ How It Works
-
-Railway will run python bot.py as defined in Procfile.
-
-Flask web server listens for pings to keep the container alive.
-
-Discord bot runs in the same process.
