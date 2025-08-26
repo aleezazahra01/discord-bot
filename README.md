@@ -30,7 +30,7 @@ web: python bot.py
 ```
 2.go to railway.app and deploy it from the repo.
 3.declare the bottoken environmental variable with the bot token from discord for developers site.
-4.then deploy it.
+4.then deploy it for free.
 
 >>It crashed for like 50 times before getting deployed.
 
