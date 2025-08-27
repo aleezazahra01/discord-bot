@@ -12,7 +12,7 @@ A simple Discord bot using discord.py and Flask keep-alive server, deployed for 
 
 
 ## Project Structure
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+
 
 ```bash
 discord-bot/
