@@ -6,6 +6,8 @@ A simple Discord bot using discord.py and Flask keep-alive server, deployed for 
 
 ✅ Flask web server for uptime
 
+✅Uses API to fetch joke
+
 ✅ Free hosting on Railway
 
 ✅ Easy to set up & deploy
@@ -31,6 +33,8 @@ web: python bot.py
 2.go to railway.app and deploy it from the repo.
 3.declare the bottoken environmental variable with the bot token from discord for developers site.
 4.then deploy it for free.
+
+Open for suggestions and contributions.
 
 >>It crashed for like 50 times before getting deployed.
 
