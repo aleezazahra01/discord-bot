@@ -1,5 +1,9 @@
 #  Discord Bot (24/7 Hosting with Flask + Railway)
-A simple Discord bot using discord.py and Flask keep-alive server, deployed for free on Railway.
+A simple Discord bot using discord.py and Flask keep-alive server, deployed for free on Railway
+
+<img width="695" height="408" alt="duiuv" src="https://github.com/user-attachments/assets/a7ae104b-8450-4048-a993-38dfd19ce02c" />
+
+
 # Features:
 
 ✅ Discord bot using discord.py
