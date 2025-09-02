@@ -35,7 +35,9 @@ discord-bot/
 web: python bot.py
 ```
 2.go to railway.app and deploy it from the repo.
-3.declare the bottoken environmental variable with the bot token from discord for developers site.
+3.declare the bottoken environmental variable with the bot token from discord for developers site https://discord.com/developers.
+4.And just deploy it.
+
 4.then deploy it for free.
 
 Open for suggestions and contributions.
