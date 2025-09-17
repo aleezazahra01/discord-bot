@@ -157,13 +157,6 @@ async def joke(ctx):
     except Exception as e:
         await ctx.send(f"Oops! Something went wrong: {e}")
 
-@client.command()
-async def ily(ctx):
-    await ctx.send("I LOVE YOU TOO <3")
-
-@client.command()
-async def sybau(ctx):
-    await ctx.send("GURT")
 #error handling
 @ban.error
 @kick.error
