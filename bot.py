@@ -152,7 +152,7 @@ async def unmute(ctx, member: discord.Member):
 @client.command()
 async def joke(ctx):
     try:
-        response = requests.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,sexist,racist,explicit&type=single")
+        response = requests.get("https://v2.jokeapi.dev/joke/Any?type=single")
         data = response.json()
         joke = data.get("joke", "Couldn't think of a joke right now")
         await ctx.send(joke)
