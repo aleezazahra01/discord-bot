@@ -11,9 +11,18 @@ intents.message_content = True
 intents.members = True
 client = commands.Bot(command_prefix='=', intents=intents)
 
+def mod_or_perms():
+    async def predicate(ctx):
+        roles = ['moderator', 'Administrator', 'Owner']
+        if any(role.name in roles for role in ctx.author.roles):
+            return True
+        if ctx.author.guild_permissions.administrator or ctx.author.guild_permissions.ban_members or ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.moderate_members:
+            return True
+        return False
+    return commands.check(predicate)
+
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(administrator=True)
+@mod_or_perms()
 async def helpme(ctx):
     embed = discord.Embed(
         title="Kuromi XD - Command List",
@@ -57,7 +66,7 @@ async def on_member_join(member):
     if not channel:
         return
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://v2.jokeapi.dev/joke/Any?type=single") as res:
+        async with session.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,sexist,racist,explicit&type=single") as res:
             data = await res.json()
             joke = data.get("joke", "Couldn't fetch a joke sorry")
     await channel.send(f"Welcome to the server, {member.mention} \n {joke}")
@@ -79,8 +88,7 @@ async def leave(ctx):
         await ctx.send("I'm not in a voice channel")
 
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(ban_members=True)
+@mod_or_perms()
 async def ban(ctx, member: discord.Member, *, reason=None):
     if reason is None:
         reason = "This user was banned by Admin"
@@ -88,8 +96,7 @@ async def ban(ctx, member: discord.Member, *, reason=None):
     await ctx.send(f"{member} has been banned. Reason: {reason}")
 
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(ban_members=True)
+@mod_or_perms()
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     try:
@@ -106,8 +113,7 @@ async def unban(ctx, *, member):
     await ctx.send("User not found in ban list.")
 
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(kick_members=True)
+@mod_or_perms()
 async def kick(ctx, member: discord.Member, *, reason=None):
     if reason is None:
         reason = "This user was kicked by Admin"
@@ -115,8 +121,7 @@ async def kick(ctx, member: discord.Member, *, reason=None):
     await ctx.send(f"{member} has been kicked. Reason: {reason}")
 
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(moderate_members=True)
+@mod_or_perms()
 async def mute(ctx, member: discord.Member, timelimit):
     try:
         if timelimit.endswith("s"):
@@ -139,8 +144,7 @@ async def mute(ctx, member: discord.Member, timelimit):
         await ctx.send(f"Error: {e}")
 
 @client.command()
-@commands.has_any_role('moderator','Administrator','Owner')
-@commands.has_permissions(moderate_members=True)
+@mod_or_perms()
 async def unmute(ctx, member: discord.Member):
     await member.edit(timed_out_until=None)
     await ctx.send(f"{member} has been unmuted")
@@ -148,7 +152,7 @@ async def unmute(ctx, member: discord.Member):
 @client.command()
 async def joke(ctx):
     try:
-        response = requests.get("https://v2.jokeapi.dev/joke/Any?type=single")
+        response = requests.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,sexist,racist,explicit&type=single")
         data = response.json()
         joke = data.get("joke", "Couldn't think of a joke right now")
         await ctx.send(joke)
@@ -161,10 +165,8 @@ async def joke(ctx):
 @unmute.error
 @unban.error
 async def mod_command_error(ctx, error):
-    if isinstance(error, commands.MissingAnyRole):
-        await ctx.send("You don't have the required role for this command.")
-    elif isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the required server permission for this command.")
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("You don't have permission to use this command.")
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Missing required argument. Please check your command.")
     elif isinstance(error, commands.BadArgument):
