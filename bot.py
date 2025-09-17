@@ -66,7 +66,7 @@ async def on_member_join(member):
     if not channel:
         return
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,sexist,racist,explicit&type=single") as res:
+        async with session.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit&type=single") as res:
             data = await res.json()
             joke = data.get("joke", "Couldn't fetch a joke sorry")
     await channel.send(f"Welcome to the server, {member.mention} \n {joke}")
