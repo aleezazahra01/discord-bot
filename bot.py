@@ -13,13 +13,13 @@ client = commands.Bot(command_prefix='=', intents=intents)
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(administrator=True)
 async def helpme(ctx):
     embed = discord.Embed(
         title="Kuromi XD - Command List",
         description="Here are all my commands. Use `=` before each command!",
         color=discord.Color.purple()
     )
-
     embed.add_field(name="Moderation", value="""
     =ban @user reason - Ban a user
     =unban username#1234 - Unban a user
@@ -27,13 +27,11 @@ async def helpme(ctx):
     =mute @user time - Mute user for given time
     =unmute @user - Unmute a user
     """, inline=False)
-
     embed.add_field(name="Fun", value="""
     =hello - Say hello
     =bye - Say bye
     =joke - Random joke
     """, inline=False)
-
     embed.add_field(name="Voice", value="""
     =join - Bot joins your VC
     =leave - Bot leaves VC
@@ -58,12 +56,10 @@ async def on_member_join(member):
     channel = client.get_channel(1404437300082905128)
     if not channel:
         return
-
     async with aiohttp.ClientSession() as session:
         async with session.get("https://v2.jokeapi.dev/joke/Any?type=single") as res:
             data = await res.json()
             joke = data.get("joke", "Couldn't fetch a joke sorry")
-
     await channel.send(f"Welcome to the server, {member.mention} \n {joke}")
 
 @client.command()
@@ -84,6 +80,7 @@ async def leave(ctx):
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(ban_members=True)
 async def ban(ctx, member: discord.Member, *, reason=None):
     if reason is None:
         reason = "This user was banned by Admin"
@@ -92,6 +89,7 @@ async def ban(ctx, member: discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     try:
@@ -99,7 +97,6 @@ async def unban(ctx, *, member):
     except ValueError:
         await ctx.send("Please provide the username in this format: username#1234")
         return
-
     for ban_entry in banned_users:
         user = ban_entry.user
         if (user.name, user.discriminator) == (name, discriminator):
@@ -110,6 +107,7 @@ async def unban(ctx, *, member):
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(kick_members=True)
 async def kick(ctx, member: discord.Member, *, reason=None):
     if reason is None:
         reason = "This user was kicked by Admin"
@@ -118,6 +116,7 @@ async def kick(ctx, member: discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(moderate_members=True)
 async def mute(ctx, member: discord.Member, timelimit):
     try:
         if timelimit.endswith("s"):
@@ -131,11 +130,9 @@ async def mute(ctx, member: discord.Member, timelimit):
         else:
             await ctx.send("Invalid time format. Use s, m, h, or d.")
             return
-
         if duration.days > 28:
             await ctx.send("Mute duration cannot exceed 28 days.")
             return
-
         await member.edit(timed_out_until=discord.utils.utcnow() + duration)
         await ctx.send(f"{member} has been muted for {timelimit}")
     except Exception as e:
@@ -143,6 +140,7 @@ async def mute(ctx, member: discord.Member, timelimit):
 
 @client.command()
 @commands.has_any_role('moderator','Administrator','Owner')
+@commands.has_permissions(moderate_members=True)
 async def unmute(ctx, member: discord.Member):
     await member.edit(timed_out_until=None)
     await ctx.send(f"{member} has been unmuted")
@@ -157,7 +155,6 @@ async def joke(ctx):
     except Exception as e:
         await ctx.send(f"Oops! Something went wrong: {e}")
 
-#error handling
 @ban.error
 @kick.error
 @mute.error
@@ -165,7 +162,9 @@ async def joke(ctx):
 @unban.error
 async def mod_command_error(ctx, error):
     if isinstance(error, commands.MissingAnyRole):
-        await ctx.send("You don't have permission to use this command.")
+        await ctx.send("You don't have the required role for this command.")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the required server permission for this command.")
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Missing required argument. Please check your command.")
     elif isinstance(error, commands.BadArgument):
