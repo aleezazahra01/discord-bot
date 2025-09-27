@@ -39,17 +39,19 @@ async def helpme(ctx):
     embed.add_field(name="Fun", value="""
     =hello - Say hello
     =bye - Say bye
-    =joke - Random joke
+    =sybau - OK XD
+    =joke - Random lame ass joke
+    =loveyou -Try It Yourself <3
     """, inline=False)
     embed.add_field(name="Voice", value="""
-    =join - Bot joins your VC
-    =leave - Bot leaves VC
+    =join
+    =leave
     """, inline=False)
     await ctx.send(embed=embed)
 
 @client.event
 async def on_ready():
-    print("The bot is ready for use")
+    print("The bot is ready for use")    # 
     print('--------------------------')
 
 @client.command()
@@ -68,7 +70,7 @@ async def on_member_join(member):
     async with aiohttp.ClientSession() as session:
         async with session.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=explicit&type=single") as res:
             data = await res.json()
-            joke = data.get("joke", "Couldn't fetch a joke sorry")
+            joke = data.get("joke", "Couldn't fetch a joke")
     await channel.send(f"Welcome to the server, {member.mention} \n {joke}")
 
 @client.command()
@@ -86,12 +88,17 @@ async def leave(ctx):
         await ctx.send("Left the voice channel")
     else:
         await ctx.send("I'm not in a voice channel")
-
+@client.command()
+async def sybau():
+    await ctx.send(" :( ")
+@client.command():
+async def loveyou():
+    await ctx.send("I LOVE YOU TOO <3:) #so fucking unnecessary tho
 @client.command()
 @mod_or_perms()
 async def ban(ctx, member: discord.Member, *, reason=None):
     if reason is None:
-        reason = "This user was banned by Admin"
+        reason = "This user was banned"
     await member.ban(reason=reason)
     await ctx.send(f"{member} has been banned. Reason: {reason}")
 
@@ -133,7 +140,7 @@ async def mute(ctx, member: discord.Member, timelimit):
         elif timelimit.endswith("d"):
             duration = timedelta(days=int(timelimit[:-1]))
         else:
-            await ctx.send("Invalid time format. Use s, m, h, or d.")
+            await ctx.send("Invalid time format ")
             return
         if duration.days > 28:
             await ctx.send("Mute duration cannot exceed 28 days.")
@@ -157,7 +164,7 @@ async def joke(ctx):
         joke = data.get("joke", "Couldn't think of a joke right now")
         await ctx.send(joke)
     except Exception as e:
-        await ctx.send(f"Oops! Something went wrong: {e}")
+        await ctx.send(f"Oops! Something went wrong")
 
 @ban.error
 @kick.error
@@ -166,7 +173,7 @@ async def joke(ctx):
 @unban.error
 async def mod_command_error(ctx, error):
     if isinstance(error, commands.CheckFailure):
-        await ctx.send("You don't have permission to use this command.")
+        await ctx.send("OOPSIE You don't have permission to use this command.")
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Missing required argument. Please check your command.")
     elif isinstance(error, commands.BadArgument):
@@ -178,4 +185,4 @@ TOKEN = os.getenv("bottoken")
 
 if __name__ == "__main__":
     webserver.keep_alive()
-    client.run(TOKEN)
+    client.run(TOKEN)  #your token goes here .
